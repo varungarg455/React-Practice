@@ -1,12 +1,6 @@
-class Pet extends React.Component {
-  render() {
-    return React.createElement("div", {}, [
-      React.createElement("h1", {}, this.props.name),
-      React.createElement("h2", {}, this.props.animal),
-      React.createElement("h2", {}, this.props.breed)
-    ]);
-  }
-}
+import React from "react";
+import ReactDOM from "react-dom";
+import { Pet } from "./Pet";
 
 class App extends React.Component {
   handleTitleClick() {
