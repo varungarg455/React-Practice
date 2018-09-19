@@ -1,40 +1,42 @@
 class Pet extends React.Component {
-    render() {
-        return React.createElement("div", {}, [
-            React.createElement("h1", {}, this.props.name),
-            React.createElement("h2", {}, this.props.animal),
-            React.createElement("h2", {}, this.props.breed)
-        ]);
-    }
+  render() {
+    return React.createElement("div", {}, [
+      React.createElement("h1", {}, this.props.name),
+      React.createElement("h2", {}, this.props.animal),
+      React.createElement("h2", {}, this.props.breed)
+    ]);
+  }
 }
 
 class App extends React.Component {
+  handleTitleClick() {
+    alert("You clicked the title");
+  }
 
-    handleTitleClick() {
-        alert("You clicked the title");
-    }
-
-    render() {
-        return React.createElement("div", {}, [
-            React.createElement("h1", { onClick: this.handleTitleClick }, "Adopt Me!"),
-            React.createElement(Pet, {
-                name: "Luna",
-                animal: "Dog",
-                breed: "Havanese"
-            }),
-            React.createElement(Pet, {
-                name: "Pepper",
-                animal: "Bird",
-                breed: "Cockatiel"
-            }),
-            React.createElement(Pet, {
-                name: "Doink",
-                animal: "Cat",
-                breed: "Mixed"
-            })
-        ]);
-    };
+  render() {
+    return React.createElement("div", {}, [
+      React.createElement(
+        "h1",
+        { onClick: this.handleTitleClick },
+        "Adopt Me!"
+      ),
+      React.createElement(Pet, {
+        name: "Luna",
+        animal: "Dog",
+        breed: "Havanese"
+      }),
+      React.createElement(Pet, {
+        name: "Pepper",
+        animal: "Bird",
+        breed: "Cockatiel"
+      }),
+      React.createElement(Pet, {
+        name: "Doink",
+        animal: "Cat",
+        breed: "Mixed"
+      })
+    ]);
+  }
 }
 
 ReactDOM.render(React.createElement(App), document.getElementById("root"));
-
