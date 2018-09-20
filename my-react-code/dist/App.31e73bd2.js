@@ -21185,7 +21185,25 @@ var Pet = exports.Pet = function (_React$Component) {
   _createClass(Pet, [{
     key: "render",
     value: function render() {
-      return _react2.default.createElement("div", {}, [_react2.default.createElement("h1", {}, this.props.name), _react2.default.createElement("h2", {}, this.props.animal), _react2.default.createElement("h2", {}, this.props.breed)]);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "h1",
+          null,
+          this.props.name
+        ),
+        _react2.default.createElement(
+          "h2",
+          null,
+          this.props.animal
+        ),
+        _react2.default.createElement(
+          "h2",
+          null,
+          this.props.breed
+        )
+      );
     }
   }]);
 
@@ -21231,26 +21249,25 @@ var App = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react2.default.createElement("div", {}, [_react2.default.createElement("h1", { onClick: this.handleTitleClick }, "Adopt Me!"), _react2.default.createElement(_Pet.Pet, {
-        name: "Luna",
-        animal: "Dog",
-        breed: "Havanese"
-      }), _react2.default.createElement(_Pet.Pet, {
-        name: "Pepper",
-        animal: "Bird",
-        breed: "Cockatiel"
-      }), _react2.default.createElement(_Pet.Pet, {
-        name: "Doink",
-        animal: "Cat",
-        breed: "Mixed"
-      })]);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "h1",
+          { onClick: this.handleTitleClick },
+          "Adopt Me"
+        ),
+        _react2.default.createElement(_Pet.Pet, { name: "Luna", animal: "Dog", breed: "Havanese" }),
+        _react2.default.createElement(_Pet.Pet, { name: "Pepper", animal: "Bird", breed: "Cockatiel" }),
+        _react2.default.createElement(_Pet.Pet, { name: "Doink", animal: "Cat", breed: "Mixed" })
+      );
     }
   }]);
 
   return App;
 }(_react2.default.Component);
 
-_reactDom2.default.render(_react2.default.createElement(App), document.getElementById("root"));
+_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("root"));
 },{"react":"..\\node_modules\\react\\index.js","react-dom":"..\\node_modules\\react-dom\\index.js","./Pet":"Pet.js"}],"..\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -21280,7 +21297,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57806' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '62958' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

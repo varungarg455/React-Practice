@@ -2,10 +2,12 @@ import React from "react";
 
 export class Pet extends React.Component {
   render() {
-    return React.createElement("div", {}, [
-      React.createElement("h1", {}, this.props.name),
-      React.createElement("h2", {}, this.props.animal),
-      React.createElement("h2", {}, this.props.breed)
-    ]);
+    return (
+      <div>
+        <h1>{this.props.name}</h1>
+        <h2>{this.props.animal}</h2>
+        <h2>{this.props.breed}</h2>
+      </div>
+    );
   }
 }
