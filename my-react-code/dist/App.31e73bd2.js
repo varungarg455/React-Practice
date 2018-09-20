@@ -21185,23 +21185,46 @@ var Pet = exports.Pet = function (_React$Component) {
   _createClass(Pet, [{
     key: "render",
     value: function render() {
+      var _props = this.props,
+          name = _props.name,
+          animal = _props.animal,
+          breed = _props.breed,
+          media = _props.media,
+          location = _props.location;
+
+
+      var photos = [];
+      if (media && media.photos && media.photos.photo) {
+        photos = media.photos.photo.filter(function (photo) {
+          return photo["@size"] === "pn";
+        });
+      }
+
       return _react2.default.createElement(
         "div",
-        null,
+        { className: "pet" },
         _react2.default.createElement(
-          "h1",
-          null,
-          this.props.name
+          "div",
+          { className: "image-container" },
+          _react2.default.createElement("img", { src: photos[0].value, alt: name })
         ),
         _react2.default.createElement(
-          "h2",
-          null,
-          this.props.animal
-        ),
-        _react2.default.createElement(
-          "h2",
-          null,
-          this.props.breed
+          "div",
+          { className: "image-container" },
+          _react2.default.createElement(
+            "h1",
+            null,
+            name
+          ),
+          _react2.default.createElement(
+            "h2",
+            null,
+            animal,
+            " - ",
+            breed,
+            " - ",
+            location
+          )
         )
       );
     }
@@ -21682,19 +21705,40 @@ var petfinder = (0, _petfinderClient2.default)({
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
-  function App() {
+  function App(props) {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+    _this.state = {
+      pets: []
+    };
+    return _this;
   }
+  //executed immediately after component is mounted
+
 
   _createClass(App, [{
     key: "componentDidMount",
-
-    //executed immediately after component is mounted
     value: function componentDidMount() {
-      var promise = petfinder.breed.list({ animal: "dog" });
-      promise.then(console.log, console.error);
+      var _this2 = this;
+
+      petfinder.pet.find({ output: "full", location: "Seattle, WA" }).then(function (data) {
+        var pets = void 0;
+        if (data.petfinder.pets && data.petfinder.pets.pet) {
+          if (Array.isArray(data.petfinder.pets.pet)) {
+            pets = data.petfinder.pets.pet;
+          } else {
+            pets = [data.petfinder.pets.pet];
+          }
+        } else {
+          pets = [];
+        }
+        //this.setState is shallow merge
+        _this2.setState({
+          pets: pets
+        });
+      });
     }
   }, {
     key: "render",
@@ -21707,9 +21751,26 @@ var App = function (_React$Component) {
           null,
           "Adopt Me"
         ),
-        _react2.default.createElement(_Pet.Pet, { name: "Luna", animal: "Dog", breed: "Havanese" }),
-        _react2.default.createElement(_Pet.Pet, { name: "Pepper", animal: "Bird", breed: "Cockatiel" }),
-        _react2.default.createElement(_Pet.Pet, { name: "Doink", animal: "Cat", breed: "Mixed" })
+        _react2.default.createElement(
+          "div",
+          null,
+          this.state.pets.map(function (pet) {
+            var breeds = void 0;
+            if (Array.isArray(pet.breeds.breed)) {
+              breeds = pet.breeds.breed.join(", ");
+            } else {
+              breeds = pet.breeds.breed;
+            }
+            return _react2.default.createElement(_Pet.Pet, {
+              key: pet.id,
+              animal: pet.animal,
+              name: pet.name,
+              breed: breeds,
+              media: pet.media,
+              location: pet.contact.city + ", " + pet.contact.state
+            });
+          })
+        )
       );
     }
   }]);
@@ -21747,7 +21808,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '56849' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '55043' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
