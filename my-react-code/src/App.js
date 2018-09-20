@@ -9,6 +9,11 @@ const petfinder = pf({
 });
 
 class App extends React.Component {
+  //executed immediately after component is mounted
+  componentDidMount() {
+    const promise = petfinder.breed.list({ animal: "dog" });
+    promise.then(console.log, console.error);
+  }
   render() {
     return (
       <div>

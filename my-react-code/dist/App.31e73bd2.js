@@ -21689,6 +21689,14 @@ var App = function (_React$Component) {
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+
+    //executed immediately after component is mounted
+    value: function componentDidMount() {
+      var promise = petfinder.breed.list({ animal: "dog" });
+      promise.then(console.log, console.error);
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -21739,7 +21747,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '52311' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '56849' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
