@@ -23958,7 +23958,7 @@ var Results = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Results;
-},{"react":"..\\node_modules\\react\\index.js","./Pet":"Pet.js","petfinder-client":"..\\node_modules\\petfinder-client\\index.js"}],"Details.js":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","./Pet":"Pet.js","petfinder-client":"..\\node_modules\\petfinder-client\\index.js"}],"Carousel.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23979,23 +23979,237 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var Carousel = function (_React$Component) {
+  _inherits(Carousel, _React$Component);
+
+  function Carousel() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Carousel);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Carousel.__proto__ || Object.getPrototypeOf(Carousel)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      photos: [],
+      active: 0
+    }, _this.handleIndexClick = function (event) {
+      _this.setState({
+        //'+' sign is used to coerce the dataset.index to number
+        active: +event.target.dataset.index
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Carousel, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _state = this.state,
+          photos = _state.photos,
+          active = _state.active;
+
+      return _react2.default.createElement(
+        "div",
+        { className: "carousel" },
+        _react2.default.createElement("img", { src: photos[active].value, alt: "primary animal" }),
+        _react2.default.createElement(
+          "div",
+          { className: "carousel-smaller" },
+          photos.map(function (photo, index) {
+            return (
+              /* eslint-disable-next-line */
+              _react2.default.createElement("img", {
+                "data-index": index,
+                key: photo.value,
+                src: photo.value,
+                className: index === active ? "active" : "",
+                alt: "animal thumbnail",
+                onClick: _this2.handleIndexClick
+              })
+            );
+          })
+        )
+      );
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+
+
+    /* 
+      This lifecycle method is used when we have
+      props passed from the parent component and 
+      we need to derive data from the props and make 
+      changes to out state object.
+      Whenever the props change, then this method
+      will render again and make the changes in the state object.
+      Also this is static so that it will maintain only one
+      copy of this method for all the classes.
+    */
+    value: function getDerivedStateFromProps(_ref2) {
+      var media = _ref2.media;
+
+      var photos = [];
+
+      if (media && media.photos && media.photos.photo) {
+        photos = media.photos.photo.filter(function (photo) {
+          return photo["@size"] === "pn";
+        });
+      }
+      return { photos: photos };
+    }
+    /* 
+      We have used handleIndexClick as an arrow function,
+      as arrow functions retain the context of the 'this'
+      keyword.
+    */
+
+  }]);
+
+  return Carousel;
+}(_react2.default.Component);
+
+exports.default = Carousel;
+},{"react":"..\\node_modules\\react\\index.js"}],"Details.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _petfinderClient = require("petfinder-client");
+
+var _petfinderClient2 = _interopRequireDefault(_petfinderClient);
+
+var _router = require("@reach/router");
+
+var _Carousel = require("./Carousel");
+
+var _Carousel2 = _interopRequireDefault(_Carousel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var petfinder = (0, _petfinderClient2.default)({
+  key: "03040d223007d411f2ed671934a459fc",
+  secret: "b003216adbc10154deeb4e125a1c8f0f"
+});
+
 var Details = function (_React$Component) {
   _inherits(Details, _React$Component);
 
   function Details() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, Details);
 
-    return _possibleConstructorReturn(this, (Details.__proto__ || Object.getPrototypeOf(Details)).apply(this, arguments));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Details.__proto__ || Object.getPrototypeOf(Details)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      loading: true
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
+  /* 
+    This is class properties.
+    This is an alternative to constructor.
+    For this we need to add plugin 
+    'transform-class-properties in babelrc file 
+  */
+
 
   _createClass(Details, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      petfinder.pet.get({
+        output: "full",
+        id: this.props.id
+      }).then(function (data) {
+        var pet = data.petfinder.pet;
+        var breed = void 0;
+        if (Array.isArray(pet.breeds.breed)) {
+          breed = pet.breeds.breed.join(", ");
+        } else {
+          breed = pet.breeds.breed;
+        }
+        _this2.setState({
+          name: pet.name,
+          animal: pet.animal,
+          location: pet.contact.city + ", " + pet.contact.state,
+          description: pet.description,
+          media: pet.media,
+          breed: breed,
+          loading: false
+        });
+      }).catch(function () {
+        (0, _router.navigate)("/");
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      if (this.state.loading) {
+        return _react2.default.createElement(
+          "h1",
+          null,
+          "loading ..."
+        );
+      }
+      var _state = this.state,
+          name = _state.name,
+          animal = _state.animal,
+          breed = _state.breed,
+          location = _state.location,
+          description = _state.description,
+          media = _state.media;
+
       return _react2.default.createElement(
-        "h1",
-        null,
-        "hi lol ",
-        this.props.id
+        "div",
+        { className: "details" },
+        _react2.default.createElement(_Carousel2.default, { media: media }),
+        _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "h1",
+            null,
+            name
+          ),
+          _react2.default.createElement(
+            "h2",
+            null,
+            animal,
+            " - ",
+            breed,
+            " - ",
+            location
+          ),
+          _react2.default.createElement(
+            "p",
+            null,
+            description
+          )
+        )
       );
     }
   }]);
@@ -24004,7 +24218,7 @@ var Details = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Details;
-},{"react":"..\\node_modules\\react\\index.js"}],"App.js":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","petfinder-client":"..\\node_modules\\petfinder-client\\index.js","@reach/router":"..\\node_modules\\@reach\\router\\es\\index.js","./Carousel":"Carousel.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -24102,7 +24316,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '52313' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49372' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
